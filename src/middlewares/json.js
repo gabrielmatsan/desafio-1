@@ -20,5 +20,5 @@ export async function json(req, res) {
 
     // Define o cabeçalho 'Content-Type' da resposta para 'application/json',
     // indicando que a resposta será enviada no formato JSON.
-    res.setHeader('Content-Type', 'application/json');  // Corrigido 'req.setHeader' para 'res.setHeader'
+    res.setHeader('Content-Type', 'application/json');
 }
