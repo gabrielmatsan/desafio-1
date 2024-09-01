@@ -30,22 +30,19 @@ export class Database {
     // Método select que recupera dados de uma tabela específica no banco de dados.
     // Pode receber um objeto de busca (search) para filtrar os dados retornados.
     select(table, search) {
-        // Obtém os dados da tabela especificada ou retorna um array vazio se a tabela não existir.
         let data = this.#database[table] ?? []
-
-        // Se um critério de busca for fornecido, os dados são filtrados para retornar apenas as linhas que correspondem ao critério.
+    
         if (search) {
-            data = data.filter(row => {
-                return Object.entries(search).some(([key, value]) => {
-                    // Verifica se algum dos valores dos campos na linha contém a string de busca (ignorando maiúsculas/minúsculas).
-                    return row[key].toLowerCase().includes(value.toLowerCase());
-                })
+          data = data.filter(row => {
+            return Object.entries(search).some(([key, value]) => {
+                if (!value) return true
+              return row[key].includes(value)
             })
+          })
         }
-
-        // Retorna os dados filtrados ou todos os dados da tabela se nenhum critério de busca for fornecido.
+    
         return data
-    }
+      }
 
     // Método insert que insere um novo dado na tabela especificada.
     insert(table, data) {
